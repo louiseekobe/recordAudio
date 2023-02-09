@@ -37,6 +37,8 @@ class _Code1State extends State<Code1> {
   }
 
   Future _createPath() async {
+     await Permission.microphone.request();
+      await Permission.storage.request();
     while (await Permission.microphone.isDenied &&
         await Permission.storage.isDenied) {
       await Permission.microphone.request();
@@ -117,7 +119,7 @@ class _Code1State extends State<Code1> {
                 ElevatedButton(
                     onPressed: () async {
                       recorder.start(
-                          path: pathToSaveAudio, encoder: AudioEncoder.wav);
+                          path: pathToSaveAudio, encoder: AudioEncoder.pcm16bit);
                     },
                     child: const Text(
                       "play",
